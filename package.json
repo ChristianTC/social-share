@@ -6,9 +6,18 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.24.0",
+    "axios-oauth-1.0a": "^0.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-facebook-login": "^4.1.1",
+    "react-facebook-share-link": "^1.0.4",
+    "react-linkedin-login-oauth2": "^2.0.0-alpha.2",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-twitter-authentication": "0.0.14",
+    "react-twitter-login": "^1.4.0",
+    "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -34,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.1"
   }
 }
