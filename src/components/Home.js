@@ -1,18 +1,13 @@
 import React from "react";
-import FacebookInPage from "./FacebookInPage";
-// import { LinkedIn } from "react-linkedin-login-oauth2";
-// import LinkedInPage from "./LinkedInPage";
-import TwitterInPage from "./TwitterInPage";
-
-import LinkedIn from "./testComponents/LinkedIn";
+// import FacebookInPage from "./vitalcard/FacebookInPage";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <div>
-      HOME
-      <LinkedIn />
-      <FacebookInPage />
-      <TwitterInPage />
+      <Link to="/local">LOCAL</Link>
+      <br />
+      <Link to="/vitalcard">VITAL CARD</Link>
     </div>
   );
 };

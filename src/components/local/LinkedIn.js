@@ -4,17 +4,17 @@ import { useLinkedIn } from "react-linkedin-login-oauth2";
 import linkedin from "react-linkedin-login-oauth2/assets/linkedin.png";
 import axios from "axios";
 
-function LinkedInPage() {
+function LinkedIn() {
   const { linkedInLogin } = useLinkedIn({
-    clientId: "77ouhfcvuzq5so",
-    redirectUri: `https://www.vitalcard.com`,
-    scope: "r_liteprofile r_emailaddress w_member_social",
+    clientId: "86vhj2q7ukf83q",
+    redirectUri: `${window.location.origin}/linkedin`,
     onSuccess: (code) => {
       console.log(code);
       setCode(code);
       setErrorMessage("");
       verifyToken(code);
     },
+    scope: "r_liteprofile r_emailaddress w_member_social",
     onError: (error) => {
       console.log(error);
       setCode("");
@@ -22,12 +22,14 @@ function LinkedInPage() {
     },
   });
   const [code, setCode] = React.useState("");
+  const [message, setMessage] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
-
   const verifyToken = (code) => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjaHJpc3RpYW5AY3cudml0YWxjYXJkLmNvbSIsImV4cCI6MTYzNzI0ODQxMywiaXNzIjoidml0YWxjYXJkIiwiYXVkIjoidml0YWxjYXJkIn0.7eXTHs6l2Z-2ivC0F6ZwXiOmUdifzGid-rKQsPeGul0";
     const headers = {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2dDc0MnV0NWFAdml0YWxjYXJkLnh5eiIsImV4cCI6MTYzNzA4MTg4NCwiaXNzIjoidml0YWxjYXJkIiwiYXVkIjoidml0YWxjYXJkIn0.0hIBwkfgEec6Fk0D3PQ_NDhlvDZX0bM90L9kyw640PM`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "text/plain",
       },
     };
@@ -40,11 +42,25 @@ function LinkedInPage() {
     };
     axios
       .post(
-        "https://services-staging.vitalcard.com:8138/Social/LinkedIn/Post",
+        "https://servicesdev.vitalcard.com:8138/Social/LinkedIn/Post",
         data,
         headers
       )
-      .then((response) => console.log(response));
+      .catch(function (error) {
+        if (error.response) {
+          // Request made and server responded
+          console.log(error.response.data);
+          setMessage(error.response.data.data.message);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+      });
   };
 
   return (
@@ -60,6 +76,7 @@ function LinkedInPage() {
       {code && (
         <div>
           <div>Authorization Code: {code}</div>
+          <div>Message: {message}</div>
         </div>
       )}
       {errorMessage && <div>{errorMessage}</div>}
@@ -74,4 +91,4 @@ const Wrapper = styled.div`
   gap: 8px;
 `;
 
-export default LinkedInPage;
+export default LinkedIn;
